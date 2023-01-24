@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
-func main() {
-	s := "0P"
-	ans := isPalindrome(s)
-	fmt.Println(ans)
-}
+//func main() {
+//	s := "0P"
+//	ans := isPalindrome(s)
+//	fmt.Println(ans)
+//}
 
 func isPalindrome(s string) bool {
 	str := []rune(strings.ToLower(s))
