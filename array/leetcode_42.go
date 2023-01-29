@@ -1,12 +1,34 @@
 package main
 
-//func main() {
-//	height := []int{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}
-//	answer := trap(height)
-//	fmt.Println(answer)
-//}
-
+//	func main() {
+//		height := []int{4, 2, 0, 3, 2, 5}
+//		answer := trap(height)
+//		fmt.Println(answer)
+//	}
 func trap(height []int) int {
+	volume, left, right := 0, 0, len(height)-1
+	leftMax, rightMax := height[left], height[right]
+	for left < right {
+		if leftMax > rightMax {
+			right--
+			if rightMax > height[right] {
+				volume += rightMax - height[right]
+			} else {
+				rightMax = height[right]
+			}
+		} else {
+			left++
+			if leftMax > height[left] {
+				volume += leftMax - height[left]
+			} else {
+				leftMax = height[left]
+			}
+		}
+	}
+	return volume
+}
+
+func trap2(height []int) int {
 	volume, startIndex, isDesc := 0, 0, false
 	for i := 0; i < len(height)-1; i++ {
 		if height[i] > height[i+1] {

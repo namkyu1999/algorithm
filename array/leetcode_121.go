@@ -1,14 +1,10 @@
 package main
 
-import (
-	"fmt"
-)
-
-func main() {
-	prices := []int{1, 2}
-	answer := maxProfit(prices)
-	fmt.Println(answer)
-}
+//func main() {
+//	prices := []int{1, 2}
+//	answer := maxProfit(prices)
+//	fmt.Println(answer)
+//}
 
 func maxProfit(prices []int) int {
 	minPrice, answer := prices[0], 0
