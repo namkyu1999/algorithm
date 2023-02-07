@@ -1,12 +1,10 @@
 package main
 
-import "fmt"
-
-func main() {
-	input := "bcabc"
-	result := removeDuplicateLetters(input)
-	fmt.Println(result)
-}
+//func main() {
+//	input := "bcabc"
+//	result := removeDuplicateLetters(input)
+//	fmt.Println(result)
+//}
 
 func removeDuplicateLetters(s string) string {
 	lastIndex := [26]int{}
