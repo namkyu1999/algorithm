@@ -1,10 +1,10 @@
 package main
 
-func main() {
-	//arr := []int{10, 13, 12, 14, 15}
-	//result := oddEvenJumps(arr)
-	//fmt.Println(result)
-}
+//func main() {
+//	//arr := []int{10, 13, 12, 14, 15}
+//	//result := oddEvenJumps(arr)
+//	//fmt.Println(result)
+//}
 
 func oddEvenJumps(arr []int) int {
 	result := 0
