@@ -1,15 +1,13 @@
 package main
 
-import "fmt"
-
-func main() {
-	arr := [][]int{
-		[]int{1, 5},
-		[]int{3, 4},
-	}
-	result := maxDistance(arr)
-	fmt.Println(result)
-}
+//func main() {
+//	arr := [][]int{
+//		[]int{1, 5},
+//		[]int{3, 4},
+//	}
+//	result := maxDistance(arr)
+//	fmt.Println(result)
+//}
 
 func maxDistance(arrays [][]int) int {
 	top, topCandidate, topIndex, bottom, bottomCandidate, bottomIndex := arrays[0][0], -100000, 0, arrays[0][len(arrays[0])-1], 100000, 0
