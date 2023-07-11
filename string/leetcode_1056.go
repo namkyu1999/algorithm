@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 )
 
-func main() {
-	input := 13
-	answer := confusingNumber(input)
-	fmt.Println(answer)
-}
+//func main() {
+//	input := 13
+//	answer := confusingNumber(input)
+//	fmt.Println(answer)
+//}
 
 func confusingNumber(n int) bool {
 	r := []rune(strconv.Itoa(n))
