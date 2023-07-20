@@ -1,15 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 )
 
-func main() {
-	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
-	answer := groupAnagrams(strs)
-	fmt.Println(answer)
-}
+//func main() {
+//	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
+//	answer := groupAnagrams(strs)
+//	fmt.Println(answer)
+//}
 
 func groupAnagrams(strs []string) [][]string {
 	var result [][]string
