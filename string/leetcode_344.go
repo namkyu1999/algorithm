@@ -7,10 +7,7 @@ package main
 //}
 
 func reverseString(s []byte) {
-	lastIndex := len(s) - 1
-	for i := 0; i <= lastIndex/2; i++ {
-		tmp := s[i]
-		s[i] = s[lastIndex-i]
-		s[lastIndex-i] = tmp
+	for i, j := 0, len(s)-1; i < len(s)/2; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
 	}
 }

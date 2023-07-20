@@ -11,49 +11,31 @@ import (
 //}
 
 func isPalindrome(s string) bool {
-	str := []rune(strings.ToLower(s))
-	res := true
-	start := 0
-	end := len(s) - 1
-	lastIndex := end
-	for {
-		for {
-			if start < lastIndex && !isAlphabet(str[start]) {
-				start++
-				continue
-			}
-			break
-		}
-		for {
-			if end > 0 && !isAlphabet(str[end]) {
-				end--
-				continue
-			}
-			break
-		}
-		if start >= end {
-			break
-		}
-		if str[start] == str[end] {
-			start++
-			end--
-			if start >= end {
-				break
+	sRune := []rune(strings.ToLower(s))
+	i, j := 0, len(sRune)-1
+	for i < j {
+		if isAlphaNumeric(sRune[i]) {
+			if isAlphaNumeric(sRune[j]) {
+				if sRune[i] != sRune[j] {
+					return false
+				} else {
+					i++
+					j--
+				}
+			} else {
+				j--
 			}
 		} else {
-			res = false
-			break
+			i++
+			continue
 		}
 	}
-	return res
+	return true
 }
 
-func isAlphabet(char rune) bool {
-	// LowerCase 97 - 122
-	// number 48 - 57
-	if (char >= 97 && char <= 122) || (char >= 48 && char <= 57) {
+func isAlphaNumeric(r rune) bool {
+	if ('a' <= r && r <= 'z') || ('0' <= r && r <= '9') {
 		return true
-	} else {
-		return false
 	}
+	return false
 }

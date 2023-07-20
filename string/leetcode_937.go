@@ -2,7 +2,6 @@ package main
 
 import (
 	"sort"
-	"strconv"
 	"strings"
 )
 
@@ -13,46 +12,33 @@ import (
 //}
 
 func reorderLogFiles(logs []string) []string {
-	var numberLogs []string
-	var stringLogs []string
-
-	for _, v := range logs {
-		flag := strings.Split(v, " ")[1]
-		if _, err := strconv.ParseComplex(flag, 128); err == nil {
-			numberLogs = append(numberLogs, v)
-		} else {
-			stringLogs = append(stringLogs, v)
-		}
-	}
-	orderAsDictionary(stringLogs)
-	return append(stringLogs, numberLogs...)
-}
-
-func orderAsDictionary(chunks []string) {
-	hash := make(map[string]string)
-	keyHash := make(map[string][]string)
-	compareChunks := make([]string, 0)
-	for i, v := range chunks {
-		tmp := strings.Split(v, " ")
-		newKey := tmp[0]
-		newString := strings.Join(tmp[1:], " ")
-		keyHash[newString] = append(keyHash[newString], newKey)
-		hash[newString] = chunks[i]
-		compareChunks = append(compareChunks, newString)
-	}
-	sort.Strings(compareChunks)
-	for i := 0; i < len(chunks); i++ {
-		value := compareChunks[i]
-		duplicatedCount := len(keyHash[value])
-		if duplicatedCount > 1 {
-			sort.Strings(keyHash[value])
-			for k, v := range keyHash[value] {
-				chunks[i+k] = v + " " + value
-			}
-			i += duplicatedCount
+	var letterLogs []string
+	i := 0
+	for i < len(logs) {
+		char := rune(strings.Split(logs[i], " ")[1][0])
+		if '0' <= char && char <= '9' {
+			// digit
+			i++
 			continue
 		} else {
-			chunks[i] = hash[value]
+			// letter
+			letterLogs = append(letterLogs, logs[i])
+			logs = append(logs[:i], logs[i+1:]...)
 		}
 	}
+	sort.Slice(letterLogs, func(i, j int) bool {
+		iStr, jStr := strings.SplitN(letterLogs[i], " ", 2), strings.SplitN(letterLogs[j], " ", 2)
+		flag := strings.Compare(iStr[1], jStr[1])
+		if flag == -1 {
+			return true
+		} else if flag == 0 {
+			flag2 := strings.Compare(iStr[0], jStr[0])
+			if flag2 == -1 {
+				return true
+			}
+			return false
+		}
+		return false
+	})
+	return append(letterLogs, logs...)
 }
