@@ -2,10 +2,10 @@ package main
 
 import "fmt"
 
-func main() {
-	str := "the sky is blue"
-	reverseWords([]byte(str))
-}
+//func main() {
+//	str := "the sky is blue"
+//	reverseWords([]byte(str))
+//}
 
 func reverseWords(s []byte) {
 	for i, j := 0, len(s)-1; i < len(s)/2; i, j = i+1, j-1 {
