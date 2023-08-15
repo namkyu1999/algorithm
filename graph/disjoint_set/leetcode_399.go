@@ -1,5 +1,5 @@
-//package main
-//
+package main
+
 //import (
 //	"fmt"
 //)
@@ -23,68 +23,84 @@
 //	}
 //	result := make([]float64, len(queries))
 //	for i, v := range queries {
-//		root0, exist0 := uf.Find(v[0])
-//		root1, exist1 := uf.Find(v[1])
-//		if exist1 && exist0 && root1 == root0 {
-//			result[i] = uf.value[v[0]] / uf.value[v[1]]
-//		} else {
+//		if root0, ok := uf.root[v[0]]; !ok {
 //			result[i] = -1
+//			continue
+//		} else if root1, ok := uf.root[v[1]]; !ok {
+//			result[i] = -1
+//			continue
+//		} else {
+//			if root1 != root0 {
+//				result[i] = -1
+//				continue
+//			}
+//			result[i] = uf.value[v[0]] / uf.value[v[1]]
 //		}
 //	}
 //	return result
 //}
 //
 //type UnionFound struct {
-//	rank  map[string]int
 //	root  map[string]string
 //	value map[string]float64
+//	rank  map[string]int
 //}
 //
-//func (uf *UnionFound) Find(x string) (string, bool) {
-//	if v, ok := uf.root[x]; !ok {
-//		return "", false
-//	} else {
-//		if x == v {
-//			return x, true
-//		} else {
-//			newOne, _ := uf.Find(v)
-//			uf.root[x] = newOne
-//			return uf.root[x], true
-//		}
-//	}
+//func (uf *UnionFound) Find(x string) string {
+//	return uf.root[x]
 //}
 //
 //func (uf *UnionFound) Union(x, y string, value float64) {
-//	if _, ok := uf.value[x]; ok {
-//		uf.value[y] = uf.value[x] / value
-//	} else if _, ok := uf.value[x]; ok {
-//		uf.value[x] = uf.value[y] * value
-//	} else {
-//		uf.value[x] = value
-//		uf.value[y] = 1
-//	}
 //	if _, ok := uf.root[x]; !ok {
 //		uf.root[x] = x
+//		uf.value[x] = 1.0
+//		uf.rank[x] = 1
 //	}
 //	if _, ok := uf.root[y]; !ok {
 //		uf.root[y] = y
+//		uf.value[y] = 1.0
+//		uf.rank[y] = 1
 //	}
-//	rootX, _ := uf.Find(x)
-//	rootY, _ := uf.Find(y)
-//	if rootX != rootY {
-//		if _, ok := uf.rank[x]; !ok {
-//			uf.rank[x] = 0
+//	rootX, rootY := uf.Find(x), uf.Find(y)
+//	if rootX == rootY {
+//		return
+//	}
+//	if uf.rank[rootX] > uf.rank[rootY] {
+//		old := uf.value[y]
+//		uf.value[y] = uf.value[x] / value
+//		for k, v := range uf.root {
+//			if v == rootY {
+//				uf.root[k] = rootX
+//				if k == y {
+//					continue
+//				}
+//				uf.value[k] = uf.value[k] * uf.value[y] / old
+//			}
 //		}
-//		if _, ok := uf.rank[y]; !ok {
-//			uf.rank[y] = 0
+//	} else if uf.rank[rootX] < uf.rank[rootY] {
+//		old := uf.value[x]
+//		uf.value[x] = uf.value[y] * value
+//		for k, v := range uf.root {
+//			if v == rootX {
+//				uf.root[k] = rootY
+//				if k == x {
+//					continue
+//				}
+//				uf.value[k] = uf.value[k] * uf.value[x] / old
+//			}
 //		}
-//		if uf.rank[rootX] > uf.rank[rootY] {
-//			uf.root[rootY] = rootX
-//		} else if uf.rank[rootY] > uf.rank[rootX] {
-//			uf.root[rootX] = rootY
-//		} else {
-//			uf.rank[rootX]++
-//			uf.root[rootY] = rootX
+//	} else {
+//		uf.rank[rootX]++
+//		old := uf.value[y]
+//		uf.value[y] = uf.value[x] / value
+//		for k, v := range uf.root {
+//			if v == rootY {
+//				uf.root[k] = rootX
+//				if k == y {
+//					continue
+//				}
+//				uf.value[k] = uf.value[k] * uf.value[y] / old
+//			}
 //		}
 //	}
 //}
