@@ -1,13 +1,11 @@
 package main
 
-import "fmt"
-
-func main() {
-	nums1 := []int{12, 28, 46, 32, 50}
-	nums2 := []int{50, 12, 32, 46, 28}
-	result := anagramMappings(nums1, nums2)
-	fmt.Println(result)
-}
+//func main() {
+//	nums1 := []int{12, 28, 46, 32, 50}
+//	nums2 := []int{50, 12, 32, 46, 28}
+//	result := anagramMappings(nums1, nums2)
+//	fmt.Println(result)
+//}
 
 func anagramMappings(nums1 []int, nums2 []int) []int {
 	hash := make(map[int]int)
